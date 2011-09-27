@@ -1,0 +1,29 @@
+当前版本: TAH beta 0.2
+
+使用方法:
+0. 检查CSS文件中所有textarea的line-height值, 若是纯数字, 给它加上单位em, 如: 1.5em. 否则IE(6|7|8)下插件失效.
+1. 加载jQuery库(1.4+)
+2. 加载textareaAutoHeight.js
+3. 使用以下接口调用插件:
+$('textarea').tah({
+	moreSpace:15,   //输入框底部预留的空白, 默认15, 单位像素
+	maxHeight:600,  //指定Textarea的最大高度, 默认600, 单位像素
+	animateDur:200  //调整高度时的动画过渡时间, 默认200, 单位毫秒
+});
+
+
+更新历史:
+2011.08.23 | Beta 0.2
+2011.08.22 | Beta 0.1
+
+
+如果你对这个插件有兴趣, 
+敬请关注作者的博客:
+http://phoetry.me
+插件发布页面:
+http://phoetry.me/archives/tah.html
+GitHub页面:
+https://github.com/phoetry/textareaAutoHeight
+
+感谢你的支持与反馈.
+作者: Phoetry
