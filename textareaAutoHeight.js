@@ -1,7 +1,7 @@
 /**
-  * jQuery TAH Plugin Beta v0.2
+  * jQuery TAH Plugin Beta v0.3
   * Using for Textarea-Auto-Height
-  * @Update: August 23, 2011
+  * @Update: October 18, 2011
   * @Author: Phoetry (http://phoetry.me)
   * @Url: http://phoetry.me/archives/tah.html
   **/
@@ -16,26 +16,25 @@ $.fn.tah=function(opt){
 		if(!$.nodeName(this,'textarea'))return;
 		var ta=$(this).css({resize:'none',overflowY:'hidden'}),
 			css=(function(){
-				var css={},i=8,
-					z='width fontSize fontFamily lineHeight wordWrap wordBreak whiteSpace letterSpacing'.split(' ');
-				while(i--)css[z[i]]=ta.css(z[i]);
+				var css={};
+				'width fontSize fontFamily lineHeight wordWrap wordBreak whiteSpace letterSpacing'
+				.replace(/[^ ]+/g,function(s){css[s]=ta.css(s)});
 				return $.extend(css,{
 					width:ta.width()*1.5,
 					position:'absolute',
 					left:-9999,
-					top:0
+					height:0
 				});
-			})(),
+			}()),
 			_ta=ta.clone().css(css).attr({id:'',name:'',tabIndex:-1}),
 			stCache,stCur,valCur,defHeight=ta.height(),
-			both=$([ta[0],_ta[0]]),
 			autoHeight=function(){
 				valCur=ta.val();
-				_ta.val(valCur).height(0).scrollTop(9999);
+				_ta.val(valCur).scrollTop(9999);
 				stCur=Math.max(defHeight,_ta.scrollTop())+(valCur?opt.moreSpace:0);
-				stCache===stCur||(
+				stCur==stCache||(
 					stCache=stCur,
-					opt.maxHeight>stCur?both.stop().animate({height:stCur},opt.animateDur):ta.css({overflowY:''})
+					stCur<opt.maxHeight?ta.stop().animate({height:stCur},opt.animateDur):ta.css({overflowY:''})
 				);
 			};
 		ta.after(_ta).bind('blur focus input change propertychange',autoHeight);
