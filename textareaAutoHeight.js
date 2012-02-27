@@ -17,7 +17,7 @@ $.fn.tah=function(opt){
 		if(!$.nodeName(t,'textarea'))return;
 		var ta=$(t).css({resize:'none',overflowY:'hidden'}),
 			_ta=ta.clone().attr({id:'',name:'',tabIndex:-1}).css(function(css){
-				$.each('width fontSize fontFamily lineHeight wordWrap wordBreak whiteSpace letterSpacing'.split(' '),function(i,t){css[t]=ta.css(t)});
+				$.each('width0fontSize0fontFamily0lineHeight0wordWrap0wordBreak0whiteSpace0letterSpacing'.split(0),function(i,t){css[t]=ta.css(t)});
 				return $.extend(css,{
 					width:ta.width()*1.5,
 					position:'absolute',
@@ -27,11 +27,10 @@ $.fn.tah=function(opt){
 			}({})),
 			valCur,stCur,stCache,defHeight=ta.height(),
 			autoHeight=function(){
-				_ta.val(valCur=ta.val()).scrollTop(9e5);
-				stCur=Math.max(defHeight,_ta.scrollTop())+(valCur&&opt.moreSpace);
-				stCur==stCache?0:(stCache=stCur)<opt.maxHeight?ta.stop().animate({height:stCur},opt.animateDur):ta.css({overflowY:''});
+				(stCur=Math.max(defHeight,_ta.val(valCur=ta.val()).scrollTop(9e5).scrollTop())+(valCur&&opt.moreSpace))==stCache?0:
+				(stCache=stCur)<opt.maxHeight?ta.stop().animate({height:stCur},opt.animateDur):ta.css('overflowY','auto');
 			};
-		ta.after(_ta).on('blur focus input change propertychange',autoHeight);
+		ta.after(_ta).bind('blur focus input change propertychange keydown',autoHeight);
 	});
 };
 }(jQuery);
